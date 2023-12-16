@@ -17,8 +17,6 @@
 		513DB0A82A7AB06F0098D767 /* cloth0.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 513DB0A62A7AB06F0098D767 /* cloth0.usdz */; };
 		513DB0A92A7AB06F0098D767 /* cloth1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 513DB0A72A7AB06F0098D767 /* cloth1.usdz */; };
 		5170B3C32A8A7ACF006B590C /* RealityMorpher in Frameworks */ = {isa = PBXBuildFile; productRef = 5170B3C22A8A7ACF006B590C /* RealityMorpher */; };
-		55AA4F592B2E094300CDFB78 /* mouth_open.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 55AA4F582B2E094300CDFB78 /* mouth_open.usdz */; };
-		55AA4F5D2B2E0A5F00CDFB78 /* base.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 55AA4F5C2B2E0A5F00CDFB78 /* base.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +50,6 @@
 		513DB0A62A7AB06F0098D767 /* cloth0.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = cloth0.usdz; sourceTree = "<group>"; };
 		513DB0A72A7AB06F0098D767 /* cloth1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = cloth1.usdz; sourceTree = "<group>"; };
 		515F1AD62A8A2D9F00611AF9 /* MorphTargetExample.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MorphTargetExample.xctestplan; sourceTree = "<group>"; };
-		55AA4F582B2E094300CDFB78 /* mouth_open.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = mouth_open.usdz; sourceTree = "<group>"; };
-		55AA4F5C2B2E0A5F00CDFB78 /* base.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = base.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +101,6 @@
 		513DB0752A79AFD30098D767 /* MorphTargetExample */ = {
 			isa = PBXGroup;
 			children = (
-				55AA4F5C2B2E0A5F00CDFB78 /* base.usdz */,
-				55AA4F582B2E094300CDFB78 /* mouth_open.usdz */,
 				513DB0A62A7AB06F0098D767 /* cloth0.usdz */,
 				513DB0A72A7AB06F0098D767 /* cloth1.usdz */,
 				513DB0762A79AFD30098D767 /* MorphTargetExampleApp.swift */,
@@ -254,11 +248,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55AA4F5D2B2E0A5F00CDFB78 /* base.usdz in Resources */,
 				513DB07E2A79AFD60098D767 /* Preview Assets.xcassets in Resources */,
 				513DB07B2A79AFD60098D767 /* Assets.xcassets in Resources */,
 				513DB0A92A7AB06F0098D767 /* cloth1.usdz in Resources */,
-				55AA4F592B2E094300CDFB78 /* mouth_open.usdz in Resources */,
 				513DB0A82A7AB06F0098D767 /* cloth0.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
