@@ -1,5 +1,6 @@
 #include <metal_stdlib>
 #include <RealityKit/RealityKit.h>
+#include "Morph_geometry.h"
 
 using namespace metal;
 using namespace realitykit;
@@ -31,30 +32,4 @@ void morph_geometry(realitykit::geometry_parameters params, uint target_count)
 	}
 	params.geometry().set_model_position_offset(position_offset);
 	params.geometry().set_normal(normalize(output_normal));
-}
-
-// We cannot use MTLFunctionConstants with RealityKit Geometry Modifiers, hence 3 different targets
-
-[[visible]]
-void morph_geometry_target_count_1(realitykit::geometry_parameters params)
-{
-	morph_geometry(params, 1);
-}
-
-[[visible]]
-void morph_geometry_target_count_2(realitykit::geometry_parameters params)
-{
-	morph_geometry(params, 2);
-}
-
-[[visible]]
-void morph_geometry_target_count_3(realitykit::geometry_parameters params)
-{
-	morph_geometry(params, 3);
-}
-
-[[visible]]
-void morph_geometry_target_count_4(realitykit::geometry_parameters params)
-{
-	morph_geometry(params, 4);
 }

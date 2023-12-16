@@ -12,7 +12,7 @@ import RealityMorpherKernels
 final class MorphEnvironment {
 	static private(set) var shared = MorphEnvironment()
 	
-	static let maxTargetCount = 4
+	static let maxTargetCount = 8
 	
 	let morphGeometryModifiers: [CustomMaterial.GeometryModifier]
 	let debugShader: CustomMaterial.SurfaceShader
@@ -44,7 +44,7 @@ private struct MorphSystem: System {
 			model.materials = model.materials.enumerated().map { index, material in
 				guard var customMaterial = material as? CustomMaterial else { return material }
 				let resource = morpher.textureResources[index]
-				customMaterial.custom.value = morpher.currentWeights
+                customMaterial.storeData(from: morpher.currentWeights)
 				customMaterial.custom.texture = .init(resource)
 				return customMaterial
 			}
@@ -52,4 +52,19 @@ private struct MorphSystem: System {
 			entity.components.set(morpher)
 		}
 	}
+}
+
+extension CustomMaterial {
+    mutating func storeData(from vect: SIMD8<Float>) {
+        
+        custom.value = vect.lowHalf
+        
+        // We need somewhere else to pass the data to the shader.
+        // We use `secondaryTextureCoordinateTransform` because it is typically not made use of as often for other purposes.
+        secondaryTextureCoordinateTransform = .init(offset: [vect[4], vect[5]],
+                                                    scale: [vect[6], vect[7]],
+                                                    rotation: 0)
+        
+        // The rest of the 16 elements are not used. We currently only support up to 8 elements.
+    }
 }

@@ -19,12 +19,26 @@ extension SIMD4 {
 	}
 }
 
-extension SIMD4: VectorArithmetic & AdditiveArithmetic where Scalar == Float {
+extension SIMD8: VectorArithmetic & AdditiveArithmetic where Scalar == Float {
 	public mutating func scale(by rhs: Double) {
 		self *= Float(rhs)
 	}
 	
 	public var magnitudeSquared: Double {
-		length_squared(SIMD4<Double>(self))
+        SIMD8<Double>(self).lengthSquared
 	}
+}
+
+extension SIMD8 where Scalar == Double {
+    var lengthSquared: Double {
+        var result: Scalar = 0
+        for i in self.indices {
+            result += self[i] * self[i]
+        }
+        return result
+    }
+
+    var length: Double {
+        return sqrt(lengthSquared)
+    }
 }

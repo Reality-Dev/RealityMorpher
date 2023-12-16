@@ -13,9 +13,7 @@ import RealityMorpher
 final class Presenter {
 	private var clothEntity: ModelEntity?
 	
-	init() {
-		MorphComponent.registerComponent()
-	}
+	init() {}
 	
 	func setup(scene: RealityKit.Scene) {
 		guard let model = try? ModelEntity.loadModel(named: "cloth0", in: .main),

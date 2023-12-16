@@ -8,7 +8,7 @@ Adds Morph Target / Shape Key / Blend Shape animations to RealityKit
 
 #### Xcode project
 
-From the Xcode menu select `File > Add Package Dependencies...` and enter `https://github.com/Utsira/RealityMorpher`
+From the Xcode menu select `File > Add Package Dependencies...` and enter `https://github.com/Reality-Dev/RealityMorpher`
 
 #### SPM Package
 
@@ -16,7 +16,7 @@ Add RealityMorpher as a dependency in the `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Utsira/RealityMorpher.git", .upToNextMajor(from: "0.0.1"))
+    .package(url: "https://github.com/Reality-Dev/RealityMorpher.git", .upToNextMajor(from: "0.0.1"))
 ]
 ```
 

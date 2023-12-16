@@ -72,4 +72,10 @@ struct LinearAnimator: MorphAnimating {
 		let value = mix(origin.values, target.values, t: Float(timeElapsed / duration))
 		return MorphEvent(status: .running, weights: MorphWeights(values: value))
 	}
+    
+    func mix(_ x: simd_float8, _ y: simd_float8, t: Float) -> simd_float8 {
+        let valueLow = simd.mix(origin.values.lowHalf, target.values.lowHalf, t: t)
+        let valueHigh = simd.mix(origin.values.highHalf, target.values.highHalf, t: t)
+        return .init(lowHalf: valueLow, highHalf: valueHigh)
+    }
 }

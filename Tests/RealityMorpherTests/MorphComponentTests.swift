@@ -6,7 +6,7 @@ import RealityKit
 
 final class MorphComponentTests: XCTestCase {
 	override class func setUp() {
-		MorphComponent.registerComponent()
+		// No need to register component here.
 	}
 	
 	func testGeneratedPositionsNormalsTexture() throws {

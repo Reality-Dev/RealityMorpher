@@ -7,6 +7,9 @@ import SwiftUI
 
 /// Add this component to a `ModelEntity` to enable morph target (AKA shape key or blend shape) animations.
 public struct MorphComponent: Component {
+    
+    private static var hasRegistered = false
+    
 	/// Debug options
 	public enum Option: String {
 		/// Display normals as vertex colors
@@ -21,7 +24,7 @@ public struct MorphComponent: Component {
 	/// We need to keep a reference to the texture resources we create, otherwise the custom textures get nilled when they update
 	let textureResources: [TextureResource]
 	
-	private(set) var currentWeights: SIMD4<Float>
+	private(set) var currentWeights: SIMD8<Float>
 	private var animator: MorphAnimating?
 	private static let maxTextureWidth = 8192
 	
@@ -29,7 +32,7 @@ public struct MorphComponent: Component {
 	///
 	/// - Parameters:
 	///   - entity: the `ModelEntity` that this component will be added to. This entity's materials will all be converted into `CustomMaterial`s in order to deform the geometry
-	///   - targets: an array of target geometries that can be morphed to. There must be between 1 and 4 geometries in this array. Each geometry must be topologically identical to the base entity's model (in other words have the same number of submodels, composed of the same number of parts, each of which must have the same number of vertices)
+	///   - targets: an array of target geometries that can be morphed to. There must be between 1 and 8 geometries in this array. Each geometry must be topologically identical to the base entity's model (in other words have the same number of submodels, composed of the same number of parts, each of which must have the same number of vertices)
 	///   - weights: a collection of weights describing the extent to which each target in the `targets` parameter should be applied. Typically these are in the range 0 to 1, 0 indicating the target is not applied at all, 1 indicating it is fully applied. Each element corresponds to the element at the same index in the `targets` property. Defaults to zero.
 	///   - options: a set of ``Option`` flags that can be passed, Defaults to an empty set.
 	///
@@ -72,7 +75,7 @@ public struct MorphComponent: Component {
 				let textureResource = try Self.createTextureForPart(part, targetParts: targetParts, vertCount: vertCountForPart)
 				texResources.append(textureResource)
 				updatedMaterial.custom.texture = CustomMaterial.Texture(textureResource)
-				updatedMaterial.custom.value = weights.values
+                updatedMaterial.storeData(from: weights.values)
 				let materialIndex = updatedMaterials.count
 				updatedMaterials.append(updatedMaterial)
 				var newPart = part
@@ -85,7 +88,16 @@ public struct MorphComponent: Component {
 		model.materials = updatedMaterials
 		model.mesh = updatedMesh
 		entity.components.set(model)
+        
+        Self.register()
 	}
+    
+    private static func register() {
+        if Self.hasRegistered == false {
+            registerComponent()
+            Self.hasRegistered = true
+        }
+    }
 	
 	/// Create texture from part positions & normals
 	static private func createTextureForPart(_ base: MeshResource.Part, targetParts: [MeshResource.Part], vertCount: Int) throws -> TextureResource {
