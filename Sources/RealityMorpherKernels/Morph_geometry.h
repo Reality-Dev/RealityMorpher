@@ -13,7 +13,7 @@
 #include <metal_stdlib>
 #include <RealityKit/RealityKit.h>
 
-void morph_geometry(realitykit::geometry_parameters params, uint target_count);
+void morph_geometry(realitykit::geometry_parameters params, metal::float2x4 weights, uint target_count);
 
 #endif
 

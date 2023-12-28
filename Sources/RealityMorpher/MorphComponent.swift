@@ -101,19 +101,27 @@ public struct MorphComponent: Component {
 	
 	/// Create texture from part positions & normals
 	static private func createTextureForPart(_ base: MeshResource.Part, targetParts: [MeshResource.Part], vertCount: Int) throws -> TextureResource {
-		let positions: [Float] = targetParts.flatMap(\.positions.flattenedElements)
+        
+		let targetPositions: [Float] = targetParts.flatMap(\.positions.flattenedElements)
+        
 		let basePositions: [Float] = Array(repeating: base.positions.flattenedElements, count: targetParts.count).flatMap { $0 }
-		let offsets: [Float] = vDSP.subtract(positions, basePositions)
-		let normals: [Float] = targetParts.flatMap {
-			$0.normals?.flattenedElements ?? []
-		}
-		guard positions.count == normals.count else { throw Error.positionsCountNotEqualToNormalsCount }
+        
+		let positionOffsets: [Float] = vDSP.subtract(targetPositions, basePositions)
+        
+        let targetNormals: [Float] = targetParts.flatMap {
+            $0.normals?.flattenedElements ?? []
+        }
+        let baseNormals: [Float] = Array(repeating: base.normals?.flattenedElements ?? [], count: targetParts.count).flatMap { $0 }
+        
+		let normalOffsets: [Float] = vDSP.subtract(targetNormals, baseNormals)
+        
+		guard targetPositions.count == normalOffsets.count else { throw Error.positionsCountNotEqualToNormalsCount }
 		let targetCount = targetParts.count
 		let elements = (0..<vertCount).flatMap { vertId in
 			(0..<targetCount).flatMap { targetId in
 				let elementId = ((targetId * vertCount) + vertId) * 3
 				let vertRange = elementId..<(elementId + 3)
-				return offsets[vertRange] + normals[vertRange]
+				return positionOffsets[vertRange] + normalOffsets[vertRange]
 			}
 		}.map { Float16($0) }
 		let pixelcount = elements.count / 3
