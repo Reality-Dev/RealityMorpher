@@ -113,6 +113,7 @@ public struct MorphComponent: Component {
         }
         let baseNormals: [Float] = Array(repeating: base.normals?.flattenedElements ?? [], count: targetParts.count).flatMap { $0 }
         
+        // Use normalOffsets instead of normals so that the shader does not have to sum up the target weights on each call.
 		let normalOffsets: [Float] = vDSP.subtract(targetNormals, baseNormals)
         
 		guard targetPositions.count == normalOffsets.count else { throw Error.positionsCountNotEqualToNormalsCount }

@@ -33,6 +33,7 @@ void morph_geometry(realitykit::geometry_parameters params,
         
 		float3 target_offset = float3(params.textures().custom().read(uint2(position_id % tex_width, position_id / tex_width)).xyz);
         
+        // Use normalOffsets instead of normals so that the shader does not have to sum up the target weights on each call.
 		float3 target_normal_offset = float3(params.textures().custom().read(uint2(normal_id % tex_width, normal_id / tex_width)).xyz);
         
         float float_target_id = float(target_id);
