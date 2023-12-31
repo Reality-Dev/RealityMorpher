@@ -76,6 +76,8 @@ struct LinearAnimator: MorphAnimating {
                 
             } else {
                 
+                hasUpdated = true
+                
                 // Perform one update loop to apply the final weights to the mesh.
                 return MorphEvent(status: .running, weights: target)
             }
@@ -85,7 +87,7 @@ struct LinearAnimator: MorphAnimating {
         
 		let value = mix(origin.values, target.values, t: Float(timeElapsed / duration))
         
-        hasUpdated = true
+        if !hasUpdated { hasUpdated = true }
         
 		return MorphEvent(status: .running, weights: MorphWeights(values: value))
 	}

@@ -5,6 +5,10 @@ import RealityMorpherKernels
 import Accelerate
 import SwiftUI
 
+public protocol HasMorph {
+    var morphComponent: MorphComponent {get set}
+}
+
 /// Add this component to a `ModelEntity` to enable morph target (AKA shape key or blend shape) animations.
 public struct MorphComponent: Component {
     
